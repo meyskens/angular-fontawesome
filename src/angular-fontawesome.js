@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('picardy.fontawesome', [])
-  .directive('fa', function () {
+function generateDirective(type) {
+  return function () {
     return {
       restrict: 'E',
-      template: '<span class="fa" aria-hidden="true"></span>',
+      type: type,
+      template: '<span class="' + type + '" aria-hidden="true"></span>',
       replace: true,
       link: function (scope, element, attrs) {
 
@@ -14,7 +15,7 @@ angular.module('picardy.fontawesome', [])
         var currentClasses = {};
 
         // generic function to bind string attrs
-        function _observeStringAttr (attr, baseClass) {
+        function _observeStringAttr(attr, baseClass) {
           var className;
 
           attrs.$observe(attr, function () {
@@ -69,7 +70,7 @@ angular.module('picardy.fontawesome', [])
 
         /*** BOOLEAN ATTRS ***/
         // generic function to bind boolean attrs
-        function _observeBooleanAttr (attr, className) {
+        function _observeBooleanAttr(attr, className) {
           var value;
 
           attrs.$observe(attr, function () {
@@ -85,7 +86,7 @@ angular.module('picardy.fontawesome', [])
         _observeBooleanAttr('spin');
 
         /*** CONDITIONAL ATTRS ***/
-          // automatically populate fa-li if DOM structure indicates
+        // automatically populate fa-li if DOM structure indicates
         element.toggleClass('fa-li',
           element.parent() &&
           element.parent().prop('tagName') === 'LI' &&
@@ -98,8 +99,8 @@ angular.module('picardy.fontawesome', [])
 
         attrs.$observe('alt', function () {
           var altText = attrs.alt,
-              altElem = element.next(),
-              altElemClass = 'fa-alt-text';
+            altElem = element.next(),
+            altElemClass = 'fa-alt-text';
 
           if (altText) {
             element.removeAttr('alt');
@@ -118,7 +119,14 @@ angular.module('picardy.fontawesome', [])
         });
       }
     };
-  })
+  }
+}
+
+angular.module('picardy.fontawesome', [])
+  .directive('fa', generateDirective("fas"))
+  .directive('fas', generateDirective("fas"))
+  .directive('far', generateDirective("far"))
+  .directive('fal', generateDirective("fal"))
   .directive('faStack', function () {
     return {
       restrict: 'E',
@@ -133,7 +141,7 @@ angular.module('picardy.fontawesome', [])
         var currentClasses = {};
 
         // generic function to bind string attrs
-        function _observeStringAttr (attr, baseClass) {
+        function _observeStringAttr(attr, baseClass) {
           var className;
 
           attrs.$observe(attr, function () {

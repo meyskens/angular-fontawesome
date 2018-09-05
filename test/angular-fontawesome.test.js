@@ -20,7 +20,7 @@ describe('angular-fontawesome', function () {
     }));
 
     it('should have the fa class all the time', function () {
-       expect(elm.hasClass('fa')).toBe(true);
+       expect(elm.hasClass('fas')).toBe(true);
     });
   });
 
