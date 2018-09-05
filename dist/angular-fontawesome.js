@@ -1,6 +1,6 @@
 'use strict';
 
-function generateDirective(type) {
+function generateDirective (type) {
   return function () {
     return {
       restrict: 'E',
@@ -127,6 +127,7 @@ angular.module('picardy.fontawesome', [])
   .directive('fas', generateDirective("fas"))
   .directive('far', generateDirective("far"))
   .directive('fal', generateDirective("fal"))
+  .directive('fab', generateDirective("fab"))
   .directive('faStack', function () {
     return {
       restrict: 'E',
